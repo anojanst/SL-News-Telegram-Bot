@@ -15,7 +15,7 @@ def send_welcome(message):
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
     bot.send_message(
-        message.chat.id, "<h4>Searching for News...</h4>", parse_mode="HTML")
+        message.chat.id, "<b>Searching for News...</b>", parse_mode="HTML")
     url = API_URL + "news/search/" + message.text
     response = requests.request("GET", url)
 

@@ -14,18 +14,17 @@ def send_welcome(message):
 
 @bot.message_handler(func=lambda message: True)
 def echo_all(message):
-    bot.delete_message(message.chat.id, "")
-    bot.send_message(message.chat.id, "Searching for News...")
+    bot.send_message(
+        message.chat.id, "<h4>Searching for News...</h4>", parse_mode="HTML")
     url = API_URL + "news/search/" + message.text
     response = requests.request("GET", url)
 
     result = response.json()
     for r in result:
 
-        bot_message = "<b>"+r['title']+"</b> \n<i>From: "+r['src']+" \nTime: " + \
-            r['time']+" </i> \n<a href='"+r['link']+"'><b>Read Now!</b></a>"
+        bot_message = "<a href='"+r['link']+"'><b>"+r['title']+"</b></a>"
         bot.send_message(message.chat.id, bot_message,
-                         parse_mode="HTML", disable_web_page_preview=True)
+                         parse_mode="HTML")
 
 
 bot.infinity_polling()

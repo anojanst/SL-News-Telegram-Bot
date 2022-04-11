@@ -21,10 +21,11 @@ def echo_all(message):
 
     result = response.json()
     if result['count'] > 0:
+        count_message = "<b>Total Results: " + str(result['count'])+"</b>"
+        bot.send_message(message.chat.id, count_message, parse_mode="HTML")
+
         for r in result['result']:
-            count_message = "<b>Total Results: " + str(result['count'])+"</b>"
             bot_message = "<a href='"+r['link']+"'><b>"+r['title']+"</b></a>"
-            bot.send_message(message.chat.id, count_message, parse_mode="HTML")
             bot.send_message(message.chat.id, bot_message, parse_mode="HTML")
     else:
         count_message = "<b>No results found for the keyword! try different keyword</b>"
